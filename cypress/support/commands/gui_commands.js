@@ -162,7 +162,8 @@ Cypress.Commands.add('gui_commentOnIssue', comment => {
 })
 
 Cypress.Commands.add('gui_logout', () => {
-  cy.get('.qa-user-avatar').click()
+  cy.get('[data-testid="top-bar"] [data-testid="sidebar-icon"]').click()
+  cy.get('[data-testid="user_avatar_content"]').click()
   cy.contains('Sign out').click()
 })
 
