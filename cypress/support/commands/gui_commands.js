@@ -10,7 +10,8 @@ Cypress.Commands.add('gui_login', (
   cy.get('[data-qa-selector="password_field"]').type(password, { log: false })
   cy.get('[data-qa-selector="sign_in_button"]').click()
 
-  cy.get('.qa-user-avatar').should('exist')
+  cy.get('[data-testid="top-bar"] [data-testid="sidebar-icon"]').click()
+  cy.get('[data-testid="user_avatar_content"]').should('exist')
 })
 
 Cypress.Commands.add('gui_login_or_signup_and_login', (
