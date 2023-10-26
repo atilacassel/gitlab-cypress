@@ -36,15 +36,18 @@ Cypress.Commands.add('signup', (password = Cypress.env('user_password')) => {
 })
 
 Cypress.Commands.add('gui_createAccessToken', (name = faker.string.uuid()) => {
-  cy.visit('profile/personal_access_tokens')
+  cy.visit('-/profile/personal_access_tokens')
 
-  cy.get('.qa-personal-access-token-name-field').type(name)
-  cy.get('.qa-api-radio').check()
-  cy.get('.qa-create-token-button').click()
+  cy.get('[data-testid="add-new-token-button"]').click()
+  cy.get('[data-qa-selector="access_token_name_field"]').type(name)
+  cy.get('[data-testid="clear-icon"]').should('be.visible').click()
+  // cy.get('[data-testid="api-checkbox"]').invoke('css', 'opacity', '1').should('be.visible').check()
+  cy.get('[data-testid="api-label"]').click()
+  cy.get('[data-qa-selector="create_token_button"]').click()
 
   cy.contains('Your new personal access token has been created.')
     .should('be.visible')
-  cy.get('.qa-created-personal-access-token')
+  cy.get('[data-qa-selector="created_access_token_field"]')
     .should('be.visible')
     .then(($field) => {
       const token = $field[0].value
