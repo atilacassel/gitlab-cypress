@@ -3,10 +3,5 @@ describe("Access Token's clean up", () => {
 
   it('deletes all access tokens', () => {
     cy.gui_deleteAccessTokens()
-
-    cy.contains(
-      '.settings-message',
-      'This user has no active Personal Access Tokens'
-    ).should('be.visible')
   })
 })

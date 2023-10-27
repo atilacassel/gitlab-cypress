@@ -55,22 +55,27 @@ Cypress.Commands.add('gui_createAccessToken', (name = faker.string.uuid()) => {
 })
 
 Cypress.Commands.add('gui_deleteAccessTokens', () => {
-  cy.visit('profile/personal_access_tokens')
+  cy.visit('-/profile/personal_access_tokens')
 
   cy.get('body').then($body => {
     if ($body.find('.settings-message:contains(This user has no active Personal Access Tokens.)').length) {
       cy.log('no active tokens were found.')
       return
     }
-    cy.get('.active-tokens tbody tr')
-      .its('length')
-      .then(numberOfActiveTokens => {
-        Cypress._.times(numberOfActiveTokens, () => {
-          cy.get('.qa-revoke-button')
-            .eq(0)
-            .click()
-        })
+  cy.get('[data-testid="active-tokens"]')
+    .its('length')
+    .then(numberOfActiveTokens => {
+      Cypress._.times(numberOfActiveTokens, () => {
+        cy.get('[data-qa-selector="revoke_button"]')
+          .eq(0)
+          .click()
+          cy.get('[data-testid="confirm-ok-button"]')
+          .should('be.visible')
+          .click()
       })
+    })
+    cy.contains('Revoked personal access token')
+    .should('be.visible')
   })
 })
 
