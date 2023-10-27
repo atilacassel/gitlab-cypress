@@ -62,7 +62,7 @@ Cypress.Commands.add('gui_deleteAccessTokens', () => {
       cy.log('no active tokens were found.')
       return
     }
-  cy.get('[data-testid="active-tokens"]')
+  cy.get('[data-testid="active-tokens"] tbody tr')
     .its('length')
     .then(numberOfActiveTokens => {
       Cypress._.times(numberOfActiveTokens, () => {
