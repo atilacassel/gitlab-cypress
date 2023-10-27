@@ -40,7 +40,6 @@ Cypress.Commands.add('gui_createAccessToken', (name = faker.string.uuid()) => {
 
   cy.get('[data-testid="add-new-token-button"]').click()
   cy.get('[data-qa-selector="access_token_name_field"]').type(name)
-  cy.get('[data-testid="clear-icon"]').should('be.visible').click()
   // cy.get('[data-testid="api-checkbox"]').invoke('css', 'opacity', '1').should('be.visible').check()
   cy.get('[data-testid="api-label"]').click()
   cy.get('[data-qa-selector="create_token_button"]').click()
