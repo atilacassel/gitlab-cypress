@@ -6,9 +6,9 @@ Cypress.Commands.add('gui_login', (
 ) => {
   cy.visit('users/sign_in')
 
-  cy.get('[data-qa-selector="login_field"]').type(username)
-  cy.get('[data-qa-selector="password_field"]').type(password, { log: false })
-  cy.get('[data-qa-selector="sign_in_button"]').click()
+  cy.get('[data-testid="username-field"]').type(username)
+  cy.get('[data-testid="password-field"]').type(password, { log: false })
+  cy.get('[data-testid="sign-in-button"]').click()
 
   cy.get('[data-testid="top-bar"] [data-testid="sidebar-icon"]').click()
   cy.get('[data-testid="user_avatar_content"]').should('exist')
