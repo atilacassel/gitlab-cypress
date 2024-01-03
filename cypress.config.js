@@ -5,7 +5,7 @@ const tasks = require('./cypress/support/tasks')
 module.exports = defineConfig({
   projectId: 'vxwq6z',
   e2e: {
-    baseUrl: 'http://localhost:8080/',
+    baseUrl: 'http://localhost/',
     setupNodeEvents (on, config) {
       esbuildPreprocessor(on)
       tasks(on)

@@ -48,5 +48,8 @@
     "eslint": "^8.52.0",
     "snazzy": "^9.0.0",
     "standard": "^17.1.0"
+  },
+  "dependencies": {
+    "cypress-plugin-api": "^2.11.1"
   }
 }
