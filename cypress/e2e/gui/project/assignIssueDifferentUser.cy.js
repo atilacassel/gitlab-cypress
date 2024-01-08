@@ -2,7 +2,7 @@ const newUser = require("../../../fixtures/sampleUser");
 const { username: newUserName, password: newUserPassword } = newUser;
 const defaultUser = Cypress.env("user_name");
 
-describe("Issue", { env: { snapshotOnly: true } }, () => {
+describe("Issue", () => {
   beforeEach(() => {
     cy.log("--- Pre-conditions ---");
     cy.log("1. Delete all users and projects to start in a clean state");
@@ -10,7 +10,7 @@ describe("Issue", { env: { snapshotOnly: true } }, () => {
     cy.api_deleteProjects();
 
     cy.log("2. Create a brand new user");
-    cy.api_createUser(newUser); //Parece não estar criando usuário - Ver Walmyr
+    cy.api_createUser(newUser);
 
     cy.log(
       `3. Create a new issue (and by consequence a new project) for the ${defaultUser} user`
