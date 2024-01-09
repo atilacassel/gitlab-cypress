@@ -198,7 +198,6 @@ Cypress.Commands.add('gui_addUserToProject', (user, project) => {
   cy.get('input[data-testid="members-token-select-input"]')
     .should('be.visible')
     .type(`@${username}`)
-  //Ajustar
   cy.wait('@getUser')
     .its('response.statusCode')
     .should('be.oneOf', [200, 304])
