@@ -188,7 +188,7 @@ Cypress.Commands.add('gui_createFile', file => {
 Cypress.Commands.add('gui_addUserToProject', (user, project) => {
   const { username } = user
 
-  cy.intercept('GET', `autocomplete/users.json?search=%40${username}&per_page=20&without_project_bots=true&active=true`)
+  cy.intercept('GET', `http://localhost/api/v4/users.json?search=%40${username}&per_page=20&without_project_bots=true&active=true`)
     .as('getUser')
 
   cy.visit(`${Cypress.env('user_name')}/${project}/-/project_members`)
@@ -198,9 +198,10 @@ Cypress.Commands.add('gui_addUserToProject', (user, project) => {
   cy.get('input[data-testid="members-token-select-input"]')
     .should('be.visible')
     .type(`@${username}`)
-  // cy.wait('@getUser')
-  //   .its('response.statusCode')
-  //   .should('be.oneOf', [200, 304])
+  //Ajustar
+  cy.wait('@getUser')
+    .its('response.statusCode')
+    .should('be.oneOf', [200, 304])
   cy.contains('span.gl-avatar-labeled-sublabel', `${username}`)
     .as('userListItem')
     .should('be.visible')
@@ -290,4 +291,25 @@ Cypress.Commands.add('assertStatus', statusText => {
   cy.get('.dropdown-menu .user-status')
     .should('contain', statusText)
   cy.get('.qa-user-avatar').click()
+})
+
+Cypress.Commands.add('assignToDifferentUser', (user) => {
+  const { username } = user
+
+  cy.get('span[data-testid="title"]')
+    .contains('Assignees')
+    .should('have.class', 'hide-collapsed')
+    .should('be.visible')
+    .next()
+    .click()
+  cy.get('[data-testid="user-search-input"]')
+    .should('be.visible')
+    .type(`@${username}`)
+  cy.contains('span.gl-avatar-labeled-sublabel', `@${username}`)
+    .as('userListItem')
+    .should('be.visible')
+  cy.get('@userListItem')
+    .click()
+    cy.get('[data-testid="avatar-image"]')
+    .should('be.visible')
 })
